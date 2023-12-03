@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PlantBuddy"
 include(":app")
- 
+include(":lib")
