@@ -14,6 +14,10 @@ class PlantManager {
         plants.removeIf { it.id == id }
     }
 
+    fun removePlantByPosition(position: Int) {
+        plants.removeAt(position)
+    }
+
     // Get a list of all plants
     fun getAllPlants(): List<Plant> {
         return plants.toList()
