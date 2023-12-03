@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="ADD PLANT"
+        android:text="@string/heading_input_plant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,9 @@
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/input_nameText"
+        android:focusable="true"
+        android:contentDescription="@string/fabAdd_description" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_nameText"
@@ -43,7 +45,7 @@
             android:id="@+id/inputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/etHintName"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>

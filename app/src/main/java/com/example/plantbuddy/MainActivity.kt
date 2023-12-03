@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.lib.Plant
 import com.example.plantbuddy.databinding.ActivityMainBinding
+import java.util.UUID
+
+
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var plantFragment: PlantFragment
+    private var plantFragment: PlantFragment? = null
     lateinit var app: MyApplication
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         app = application as MyApplication
+
+        plantFragment = supportFragmentManager.findFragmentById(R.id.fragment) as PlantFragment?
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, PlantFragment())
@@ -29,12 +36,26 @@ class MainActivity : AppCompatActivity() {
                .commit()
         }
 
-        supportFragmentManager.setFragmentResultListener("requestKey", this) { requestKey, bundle ->
-            val result = bundle.getString("inputKey")
-            val plant = Plant(result.toString())
+        supportFragmentManager.setFragmentResultListener("editRequestKey", this) { requestKey, bundle ->
+            val idString = bundle.getString("id")
+            val id = idString?.let { UUID.fromString(it) }
+            val name = bundle.getString("name")
+            val plant = Plant(name!!, id!!)
+            app.plants.updatePlant(plant)
+            plantFragment?.updatePlants(app.plants.getPlantPosition(plant))
+            Toast.makeText(this, "Plant ${plant.name} updated", Toast.LENGTH_SHORT).show()
+        }
+
+        supportFragmentManager.setFragmentResultListener("addRequestKey", this) { requestKey, bundle ->
+            val idString = bundle.getString("id")
+            val id = idString?.let { UUID.fromString(it) }
+            val name = bundle.getString("name")
+            val plant = Plant(name!!, id!!)
             app.plants.addPlant(plant)
             Toast.makeText(this, "Plant ${plant.name} added", Toast.LENGTH_SHORT).show()
         }
+
+
 
         binding.fabHome.setOnClickListener {
             supportFragmentManager.beginTransaction()

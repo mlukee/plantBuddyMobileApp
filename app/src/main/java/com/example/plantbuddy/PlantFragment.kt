@@ -1,5 +1,6 @@
 package com.example.plantbuddy
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -8,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.plantbuddy.databinding.FragmentItemBinding
-import com.example.plantbuddy.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
@@ -17,7 +16,6 @@ import com.example.plantbuddy.placeholder.PlaceholderContent
 class PlantFragment : Fragment(R.layout.fragment_item_list) {
 
     private lateinit var adapter: MyPlantRecyclerViewAdapter
-    private lateinit var binding: FragmentItemBinding
     private lateinit var app: MyApplication
 
     private var columnCount = 1
@@ -33,9 +31,37 @@ class PlantFragment : Fragment(R.layout.fragment_item_list) {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        adapter = MyPlantRecyclerViewAdapter(app)
+        adapter = MyPlantRecyclerViewAdapter(app).apply {
+            onItemClick = { plant ->
+                // Open InputFragment with the plant data for editing
+                // Replace 'R.id.fragment' with your container ID
+                val inputFragment = InputFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("plantName", plant.name)
+                        // Add other plant details if needed
+                    }
+                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment, inputFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
 
-        // Set the adapter
+            onItemLongClick = { position ->
+                AlertDialog.Builder(context)
+                    .setTitle("Confirm Deletion")
+                    .setMessage("Do you really want to delete this plant?")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        // Delete the plant from the list
+                        app.plants.removePlantByPosition(position)
+                        notifyItemRemoved(position)
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+            }
+        }
+
+        // Set the adapter to the RecyclerView
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
@@ -48,18 +74,9 @@ class PlantFragment : Fragment(R.layout.fragment_item_list) {
         return view
     }
 
-    companion object {
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            PlantFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+    fun updatePlants(position: Int) {
+        adapter.notifyItemChanged(position)
     }
+
 }

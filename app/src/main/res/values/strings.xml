@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">PlantBuddy</string>
-    <string name="title_activity_main1">MainActivity1</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main1">MainActivity</string>
+
+    <string name="fabAdd_description">Add plant </string>
+    <string name="fabHome_description">Home </string>
+
+    <string name="heading_input_plant">ADD PLANT</string>
+    <string name="etHintName">Name</string>
 </resources>

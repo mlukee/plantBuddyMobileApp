@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.lib.Plant
 
-import com.example.plantbuddy.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.plantbuddy.databinding.FragmentItemBinding
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyPlantRecyclerViewAdapter(
     private val app: MyApplication,
 ) : RecyclerView.Adapter<MyPlantRecyclerViewAdapter.ViewHolder>() {
+
+    var onItemClick: ((Plant) -> Unit)? = null
+    var onItemLongClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -39,16 +37,34 @@ class MyPlantRecyclerViewAdapter(
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val plantName = binding.plantName
+
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick?.invoke(app.plants.plants[position])
+                }
+            }
+
+            itemView.setOnLongClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemLongClick?.invoke(position)
+                }
+                true
+            }
+        }
+
     }
 
-    fun addPlant(plant: Plant) {
-        app.plants.addPlant(plant)
-        notifyItemInserted(app.plants.plants.size - 1)
-    }
-
-    fun removePlant(position:Int) {
-        app.plants.removePlantByPosition(position)
-        notifyItemRemoved(position)
-    }
+//    fun addPlant(plant: Plant) {
+//        app.plants.addPlant(plant)
+//        notifyItemInserted(app.plants.plants.size - 1)
+//    }
+//
+//    fun removePlant(position:Int) {
+//        app.plants.removePlantByPosition(position)
+//        notifyItemRemoved(position)
+//    }
 
 }
