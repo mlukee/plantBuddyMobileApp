@@ -35,8 +35,10 @@ class PlantFragment : Fragment(R.layout.fragment_item_list) {
             onItemClick = { plant ->
                 val inputFragment = InputFragment().apply {
                     arguments = Bundle().apply {
-                        putString("plantName", plant.name)
-                        putString("plantID", plant.id)
+                        putString(ARGUMENTS.PLANT_NAME.key, plant.name)
+                        putString(ARGUMENTS.PLANT_TYPE.key, plant.plantType)
+                        putString(ARGUMENTS.PLANT_SCHEDULE.key, plant.wateringSchedule)
+                        putString(ARGUMENTS.PLANT_ID.key, plant.id)
                     }
                 }
                 parentFragmentManager.beginTransaction()

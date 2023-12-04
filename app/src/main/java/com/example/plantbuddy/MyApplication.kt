@@ -41,6 +41,8 @@ class MyApplication: Application() {
         val index = plants.indexOfFirst { it.id == plant.id }
         if (index != -1) {
             plants[index].name = plant.name
+            plants[index].plantType = plant.plantType
+            plants[index].wateringSchedule = plant.wateringSchedule
         }
     }
 

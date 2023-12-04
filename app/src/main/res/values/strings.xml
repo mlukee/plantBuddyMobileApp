@@ -7,11 +7,15 @@
 
     <string name="heading_input_plant">ADD PLANT</string>
     <string name="etHintName">Name</string>
+    <string name="etHintType">Type</string>
+    <string name="etHintSchedule">Schedule</string>
 
     <string name="home_screen_heading">PlantBuddy</string>
 
     <string name="imgDescription">Plant</string>
     <string name="listPlant_name">Plant Name</string>
+    <string name="listPlant_type">Plant Type</string>
+    <string name="listPlant_schedule">Plant Schedule</string>
 
     <string name="add_your_first_plant_heading">Add your first plant</string>
     <string name="add_your_first_plant_description">PlantBuddy will then add it to the list of your plants.</string>

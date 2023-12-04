@@ -31,12 +31,16 @@ class MyPlantRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val plant = app.plants[position]
         holder.plantName.text = plant.name
+        holder.plantType.text = plant.plantType
+        holder.plantSchedule.text = plant.wateringSchedule
     }
 
     override fun getItemCount(): Int = app.plants.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val plantName = binding.plantName
+        val plantType = binding.plantType
+        val plantSchedule = binding.plantSchedule
 
         init {
             itemView.setOnClickListener {

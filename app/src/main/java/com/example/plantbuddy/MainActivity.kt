@@ -45,9 +45,11 @@ class MainActivity : AppCompatActivity() {
             "editRequestKey",
             this
         ) { requestKey, bundle ->
-            val id = bundle.getString("plantID")
-            val name = bundle.getString("name")
-            val plant = Plant(name!!, id!!)
+            val id = bundle.getString(ARGUMENTS.PLANT_ID.key)
+            val name = bundle.getString(ARGUMENTS.PLANT_NAME.key)
+            val plantType = bundle.getString(ARGUMENTS.PLANT_TYPE.key)
+            val wateringSchedule = bundle.getString(ARGUMENTS.PLANT_SCHEDULE.key)
+            val plant = Plant(name!!, plantType!!, wateringSchedule!!, id!!)
             app.updatePlant(plant)
             plantFragment?.updatePlants(app.getPlantPosition(plant))
         }
@@ -56,8 +58,10 @@ class MainActivity : AppCompatActivity() {
             "addRequestKey",
             this
         ) { requestKey, bundle ->
-            val name = bundle.getString("name")
-            val plant = Plant(name!!)
+            val name = bundle.getString(ARGUMENTS.PLANT_NAME.key)
+            val plantType = bundle.getString(ARGUMENTS.PLANT_TYPE.key)
+            val wateringSchedule = bundle.getString(ARGUMENTS.PLANT_SCHEDULE.key)
+            val plant = Plant(name!!, plantType!!, wateringSchedule!!)
             app.addPlant(plant)
             hideFirstPlantCardView()
         }
