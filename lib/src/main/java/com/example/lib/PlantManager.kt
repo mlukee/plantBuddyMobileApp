@@ -10,7 +10,7 @@ class PlantManager {
     }
 
     // Remove a plant by its UUID
-    fun removePlantById(id: UUID) {
+    fun removePlantById(id: String) {
         plants.removeIf { it.id == id }
     }
 
@@ -31,11 +31,11 @@ class PlantManager {
     }
 
     fun getPlantPosition(plant: Plant): Int {
-        return plants.indexOf(plant)
+        return plants.indexOfFirst { it.id == plant.id }
     }
 
     // Find a plant by its UUID
-    fun findPlantById(id: UUID): Plant? {
+    fun findPlantById(id: String): Plant? {
         return plants.find { it.id == id }
     }
 }

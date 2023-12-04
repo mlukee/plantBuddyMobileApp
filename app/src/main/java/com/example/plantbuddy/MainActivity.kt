@@ -7,9 +7,6 @@ import com.example.lib.Plant
 import com.example.plantbuddy.databinding.ActivityMainBinding
 import java.util.UUID
 
-
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var plantFragment: PlantFragment? = null
@@ -23,8 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         app = application as MyApplication
 
-        plantFragment = supportFragmentManager.findFragmentById(R.id.fragment) as PlantFragment?
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, PlantFragment())
             .commit()
@@ -37,29 +32,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener("editRequestKey", this) { requestKey, bundle ->
-            val idString = bundle.getString("id")
-            val id = idString?.let { UUID.fromString(it) }
+            val id = bundle.getString("plantID")
             val name = bundle.getString("name")
             val plant = Plant(name!!, id!!)
-            app.plants.updatePlant(plant)
-            plantFragment?.updatePlants(app.plants.getPlantPosition(plant))
-            Toast.makeText(this, "Plant ${plant.name} updated", Toast.LENGTH_SHORT).show()
+            app.updatePlant(plant)
+            plantFragment?.updatePlants(app.getPlantPosition(plant))
         }
 
         supportFragmentManager.setFragmentResultListener("addRequestKey", this) { requestKey, bundle ->
-            val idString = bundle.getString("id")
-            val id = idString?.let { UUID.fromString(it) }
             val name = bundle.getString("name")
-            val plant = Plant(name!!, id!!)
-            app.plants.addPlant(plant)
-            Toast.makeText(this, "Plant ${plant.name} added", Toast.LENGTH_SHORT).show()
+            val plant = Plant(name!!)
+            app.addPlant(plant)
         }
 
-
-
         binding.fabHome.setOnClickListener {
+            if(plantFragment == null){
+                plantFragment = PlantFragment()
+            }
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, PlantFragment())
+                .replace(R.id.fragment, plantFragment!!)
                 .addToBackStack(null)
                 .commit()
         }

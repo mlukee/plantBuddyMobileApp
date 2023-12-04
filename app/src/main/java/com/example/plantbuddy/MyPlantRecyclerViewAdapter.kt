@@ -29,11 +29,11 @@ class MyPlantRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val plant = app.plants.plants[position]
+        val plant = app.plants[position]
         holder.plantName.text = plant.name
     }
 
-    override fun getItemCount(): Int = app.plants.plants.size
+    override fun getItemCount(): Int = app.plants.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val plantName = binding.plantName
@@ -42,7 +42,7 @@ class MyPlantRecyclerViewAdapter(
             itemView.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    onItemClick?.invoke(app.plants.plants[position])
+                    onItemClick?.invoke(app.plants[position])
                 }
             }
 
@@ -57,14 +57,13 @@ class MyPlantRecyclerViewAdapter(
 
     }
 
-//    fun addPlant(plant: Plant) {
-//        app.plants.addPlant(plant)
-//        notifyItemInserted(app.plants.plants.size - 1)
-//    }
-//
-//    fun removePlant(position:Int) {
-//        app.plants.removePlantByPosition(position)
-//        notifyItemRemoved(position)
-//    }
+    fun updatePlant(position: Int) {
+        notifyItemChanged(position)
+    }
+
+    fun removePlant(position:Int) {
+        app.removePlantByPosition(position)
+        notifyItemRemoved(position)
+    }
 
 }

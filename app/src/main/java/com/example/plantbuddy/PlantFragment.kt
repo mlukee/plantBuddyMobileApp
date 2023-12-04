@@ -33,12 +33,10 @@ class PlantFragment : Fragment(R.layout.fragment_item_list) {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
         adapter = MyPlantRecyclerViewAdapter(app).apply {
             onItemClick = { plant ->
-                // Open InputFragment with the plant data for editing
-                // Replace 'R.id.fragment' with your container ID
                 val inputFragment = InputFragment().apply {
                     arguments = Bundle().apply {
                         putString("plantName", plant.name)
-                        // Add other plant details if needed
+                        putString("plantID", plant.id)
                     }
                 }
                 parentFragmentManager.beginTransaction()
@@ -53,7 +51,7 @@ class PlantFragment : Fragment(R.layout.fragment_item_list) {
                     .setMessage("Do you really want to delete this plant?")
                     .setPositiveButton("Yes") { dialog, which ->
                         // Delete the plant from the list
-                        app.plants.removePlantByPosition(position)
+                        app.removePlantByPosition(position)
                         notifyItemRemoved(position)
                     }
                     .setNegativeButton("No", null)

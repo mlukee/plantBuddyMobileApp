@@ -4,5 +4,5 @@ import java.util.UUID
 
 class Plant(
     var name: String,
-    val id: UUID = UUID.randomUUID()
+    val id: String = UUID.randomUUID().toString()
 )

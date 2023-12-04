@@ -12,7 +12,7 @@ import com.example.plantbuddy.databinding.FragmentInputBinding
 
 class InputFragment : Fragment(R.layout.fragment_input) {
     private lateinit var binding: FragmentInputBinding
-
+    private var plantID: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,14 +23,20 @@ class InputFragment : Fragment(R.layout.fragment_input) {
             binding.inputNameText.editText?.setText(it)
         }
 
+        plantID = arguments?.getString("plantID")
+
         val isEditing = arguments?.containsKey("plantName") == true
         val requestKey = if (isEditing) "editRequestKey" else "addRequestKey"
+        if(isEditing) {
+            binding.fragmentInputHeading.text = "UPDATE PLANT"
+        }
 
         binding.addPlant.setOnClickListener {
             val result = Bundle().apply {
-                val plant = Plant(binding.inputNameText.editText?.text.toString())
-                putString("id", plant.id.toString())
-                putString("name", plant.name)
+                if(isEditing) {
+                    putString("plantID", plantID)
+                }
+                putString("name", binding.inputNameText.editText?.text.toString())
             }
 
             // Set the result with a unique requestKey and the bundle
