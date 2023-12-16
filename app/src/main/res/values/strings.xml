@@ -4,6 +4,7 @@
 
     <string name="fabAdd_description">Add plant </string>
     <string name="fabHome_description">Home </string>
+    <string name="fabMaps_description">Maps</string>
 
     <string name="heading_input_plant">ADD PLANT</string>
     <string name="etHintName">Name</string>
@@ -19,4 +20,9 @@
 
     <string name="add_your_first_plant_heading">Add your first plant</string>
     <string name="add_your_first_plant_description">PlantBuddy will then add it to the list of your plants.</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

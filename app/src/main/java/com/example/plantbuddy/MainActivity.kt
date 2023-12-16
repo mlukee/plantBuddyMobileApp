@@ -1,5 +1,6 @@
 package com.example.plantbuddy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -87,5 +88,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.cardViewAddFirstPlant.visibility = View.GONE
         binding.buttonAdd.visibility = View.GONE
+    }
+
+    fun onFabMapsClick(view: View) {
+        startActivity(Intent(this, MapsActivity::class.java));
     }
 }
