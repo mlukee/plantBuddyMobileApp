@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         app = application as MyApplication
-
+//        app.saveFile()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, PlantFragment())
             .commit()

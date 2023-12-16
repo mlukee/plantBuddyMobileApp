@@ -1,5 +1,6 @@
 package com.example.plantbuddy
 
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -11,11 +12,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.plantbuddy.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import org.json.JSONObject
+import java.io.IOException
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var application: MyApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,32 +27,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        application = getApplication() as MyApplication
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val ptuj = LatLng(46.42, 15.87)
-        val markerOptions = MarkerOptions()
-            .position(ptuj)
-            .title("Marker in Ptuj")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+        // Load JSON data
+        val jsonData = application.loadMarkers()
+        val jsonArray = JSONObject(jsonData).getJSONArray("stores")
 
-        val zoomLevel = 15.0f
-//        mMap.addMarker(markerOptions)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ptuj, zoomLevel))
+        for (i in 0 until jsonArray.length()) {
+            val store = jsonArray.getJSONObject(i)
+            val lat = store.getDouble("lat")
+            val lng = store.getDouble("lng")
+            val name = store.getString("name")
+            val latLng = LatLng(lat, lng)
+
+            val markerOptions = MarkerOptions().position(latLng).title(name)
+            mMap.addMarker(markerOptions)
+        }
+
+        // Adjust camera to a central position
+        val centralPtuj = LatLng(46.42, 15.87)
+        val zoomLevel = 12.0f
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralPtuj, zoomLevel))
     }
 }

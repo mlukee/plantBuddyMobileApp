@@ -1,0 +1,41 @@
+{
+  "stores": [
+    {
+      "name": "Domko Ptuj - Trgovina Z Opremo Za Dom",
+      "address": "Vegova ulica 2h, 2250 Ptuj, Slovenia",
+      "working_hours": "Monday to Friday, 7:00 AM \u2013 4:00 PM; Closed on Saturdays and Sundays",
+      "contact": "+386 2 787 73 00",
+      "website": "https://domko-ptuj.business.site/"
+    },
+    {
+      "name": "El-Dar Trgovina",
+      "address": "Nova vas pri Ptuju 53, 2250 Ptuj, Slovenia",
+      "contact": "+386 (02) 780 02 01",
+      "email": "dar@dar-ptuj.si",
+      "website": "www.eldar.si"
+    },
+    {
+      "name": "Vrtni center Ptuj, JANKO KELENC S.P.",
+      "address": "Bukovci 51, Bukovci, 2281 Markovci",
+      "contact": "00 386 041 562 793",
+      "email": "janko.kelenc@gmail.com",
+      "website": "https://vrt-kelenc.si/vrtni-center-ptuj/"
+    },
+    {
+      "name": "OBI Ptuj",
+      "address": "Puhova ulica 19, 2250 Ptuj",
+      "working_hours": "Open daily from 8:00 AM to 8:00 PM",
+      "contact": "+386 2 799 06 92",
+      "email": "trgovinasi778@obi.si",
+      "website": "http://www.obi.si"
+    },
+    {
+      "name": "\u017divex Trgovina Ptuj",
+      "address": "Mariborska cesta 3, 2250 Ptuj, Slovenia",
+      "working_hours": "Monday to Friday, 8:00 AM - 6:00 PM; Saturday, 8:00 AM - 1:00 PM; Closed on Sunday",
+      "contact": "+386 2 771 16 77",
+      "email": "zivex.ptuj@zivex.si",
+      "website": "https://www.zivex.si"
+    }
+  ]
+}
