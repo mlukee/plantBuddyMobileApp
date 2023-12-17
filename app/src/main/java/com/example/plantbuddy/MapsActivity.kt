@@ -1,5 +1,6 @@
 package com.example.plantbuddy
 
+import android.content.Intent
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,15 +30,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         application = getApplication() as MyApplication
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Load JSON data
         val jsonData = application.loadMarkers()
         val jsonArray = JSONObject(jsonData).getJSONArray("stores")
 
@@ -48,13 +48,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val name = store.getString("name")
             val latLng = LatLng(lat, lng)
 
-            val markerOptions = MarkerOptions().position(latLng).title(name)
-            mMap.addMarker(markerOptions)
+            val bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.marker)
+
+            val markerOptions = MarkerOptions()
+                .position(latLng)
+                .title(name)
+                .icon(bitmapDescriptor) // Set the custom icon here
+            val marker = mMap.addMarker(markerOptions)
+
+            marker?.tag = store // Store the JSON object in the marker tag for later retrieval
         }
 
-        // Adjust camera to a central position
+        mMap.setOnMarkerClickListener { marker ->
+            val store = marker.tag as JSONObject
+            showStoreDetails(store)
+            true
+        }
+
+
         val centralPtuj = LatLng(46.42, 15.87)
         val zoomLevel = 12.0f
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centralPtuj, zoomLevel))
+    }
+
+    private fun showStoreDetails(store: JSONObject) {
+        val intent = Intent(this, StoreDetailActivity::class.java)
+        intent.putExtra("store_details", store.toString())
+        startActivity(intent)
     }
 }
