@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -18,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlantBuddy"
         tools:targetApi="31">
+        <receiver android:name=".Notification" />
         <activity
             android:name=".StoreDetailActivity"
             android:exported="false" />

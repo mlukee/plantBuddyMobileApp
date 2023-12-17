@@ -11,7 +11,7 @@
         android:id="@+id/fragment_input_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:fontFamily="@font/proxima_regular"
         android:text="@string/heading_input_plant"
         android:textFontWeight="900"
@@ -21,15 +21,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_nameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/fragment_input_heading">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputName"
@@ -85,10 +84,46 @@
         android:id="@+id/addPlant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:text="ADD PLANT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="225dp"
+        android:layout_height="145dp"
+        android:layout_gravity="center"
+
+        android:layout_weight="1"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="225dp"
+        android:layout_height="145dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:timePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Last watering date and time:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/input_ScheduleText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

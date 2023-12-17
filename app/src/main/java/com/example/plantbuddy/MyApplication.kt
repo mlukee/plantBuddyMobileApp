@@ -2,45 +2,54 @@ package com.example.plantbuddy
 
 import android.app.Application
 import com.example.lib.Plant
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.File
 
 const val FILE_NAME = "plants.json"
 class MyApplication: Application() {
-//    var plants: PlantManager = PlantManager()
     var plants: MutableList<Plant> = mutableListOf()
-    lateinit var file: File
+    private val file: File by lazy { File(filesDir, FILE_NAME) }
+    private val gson= Gson()
 
     override fun onCreate() {
         super.onCreate()
-//        plants = PlantManager()
-//        file = File(filesDir, FILE_NAME)
-//        initData()
+        loadPlants()
+    }
+
+    private fun savePlants() {
+        val jsonString = gson.toJson(plants)
+        file.writeText(jsonString)
+    }
+
+    private fun loadPlants() {
+        if (file.exists()) {
+            val jsonString = file.readText()
+            val type = object : TypeToken<List<Plant>>() {}.type
+            plants = gson.fromJson(jsonString, type)
+        }
     }
 
     fun addPlant(plant: Plant) {
         plants.add(plant)
+        savePlants()
     }
 
-    // Remove a plant by its UUID
     fun removePlantById(id: String) {
         plants.removeIf { it.id == id }
+        savePlants()
     }
 
     fun removePlantByPosition(position: Int) {
         plants.removeAt(position)
+        savePlants()
     }
 
-    // Get a list of all plants
-    fun getAllPlants(): List<Plant> {
-        return plants.toList()
-    }
-
-    fun updatePlant(plant: Plant){
+    fun updatePlant(plant: Plant) {
         val index = plants.indexOfFirst { it.id == plant.id }
         if (index != -1) {
-            plants[index].name = plant.name
-            plants[index].plantType = plant.plantType
-            plants[index].wateringSchedule = plant.wateringSchedule
+            plants[index] = plant
+            savePlants()
         }
     }
 
@@ -48,14 +57,12 @@ class MyApplication: Application() {
         return plants.indexOfFirst { it.id == plant.id }
     }
 
-    // Find a plant by its UUID
     fun findPlantById(id: String): Plant? {
         return plants.find { it.id == id }
     }
 
 
     fun loadMarkers(): String? {
-        //open file and read it
         val file = File(filesDir, "stores_in_ptuj.json")
         val json = file.readText(Charsets.UTF_8)
         return json
