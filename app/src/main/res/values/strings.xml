@@ -25,4 +25,38 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+
+    <string-array name="plant_types">
+        <item>Cactus</item>
+        <item>Orchid</item>
+        <item>Fern</item>
+        <item>Succulent</item>
+        <item>Bamboo</item>
+        <item>Spider Plant</item>
+        <item>Peace Lily</item>
+        <item>Aloe Vera</item>
+        <item>Snake Plant</item>
+        <item>Philodendron</item>
+        <item>Rubber Plant</item>
+        <item>Ficus</item>
+        <item>Pothos</item>
+        <item>Bonsai</item>
+        <item>Palm</item>
+        <item>Money Tree</item>
+        <item>Jade Plant</item>
+        <item>Calathea</item>
+        <item>Monstera</item>
+        <item>Begonia</item>
+        <item>Lavender</item>
+        <item>Rose</item>
+        <item>Zinnia</item>
+        <item>Marigold</item>
+        <item>Daisy</item>
+        <item>Hydrangea</item>
+        <item>Tulip</item>
+        <item>Sunflower</item>
+        <item>Lilac</item>
+    </string-array>
+
 </resources>

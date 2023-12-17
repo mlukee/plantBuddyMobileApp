@@ -53,10 +53,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val markerOptions = MarkerOptions()
                 .position(latLng)
                 .title(name)
-                .icon(bitmapDescriptor) // Set the custom icon here
+                .icon(bitmapDescriptor)
             val marker = mMap.addMarker(markerOptions)
 
-            marker?.tag = store // Store the JSON object in the marker tag for later retrieval
+            marker?.tag = store
         }
 
         mMap.setOnMarkerClickListener { marker ->

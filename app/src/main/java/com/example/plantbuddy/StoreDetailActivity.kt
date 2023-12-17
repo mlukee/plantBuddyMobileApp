@@ -15,10 +15,9 @@ class StoreDetailActivity : AppCompatActivity() {
         binding = ActivityStoreDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(intent.hasExtra("store_details")) {
+        if (intent.hasExtra("store_details")) {
             val storeDetails = intent.getStringExtra("store_details")?.let { JSONObject(it) }
 
-            // Assuming you have a field "image_name" in your JSON which corresponds to drawable names
             storeDetails?.let {
                 val imageName = it.optString("imgSrc")
                 val resourceId = resources.getIdentifier(imageName, "drawable", packageName)
