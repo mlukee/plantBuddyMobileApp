@@ -7,11 +7,18 @@
     <string name="fabMaps_description">Maps</string>
 
     <string name="heading_input_plant">ADD PLANT</string>
+    <string name="buttonAddPlant">ADD PLANT</string>
     <string name="etHintName">Name</string>
     <string name="etHintType">Type</string>
     <string name="etHintSchedule">Schedule</string>
 
     <string name="home_screen_heading">PlantBuddy</string>
+
+    <string name="store_detail_name">Store Name</string>
+    <string name="store_detail_address">Store Address</string>
+    <string name="store_detail_working_hours">Working Hours</string>
+    <string name="store_detail_contact">Contact</string>
+
 
     <string name="imgDescription">Plant</string>
     <string name="listPlant_name">Plant Name</string>
@@ -25,6 +32,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="lastWateringDateAndTime">Last Watering Date and Time:</string>
 
 
     <string-array name="plant_types">

@@ -23,7 +23,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
-        android:text="Vrtni center Ptuj, JANKO KELENC S.P."
+        android:text="@string/store_detail_name"
         android:textFontWeight="600"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:text="Bukovci 51, Bukovci, 2281 Markovci"
+        android:text="@string/store_detail_address"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:text="Working hours:"
+        android:text="@string/store_detail_working_hours"
         android:textFontWeight="600"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:text="Monday to Friday: 8:00 AM \u2013 4:00 PM\nSaturday: 8.00 AM \u2013 1.00 PM \nClosed on Sundays"
+        android:text="@string/store_detail_working_hours"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workingHours" />
 
@@ -71,7 +71,7 @@
         android:textSize="16sp"
         android:textFontWeight="600"
         android:layout_marginTop="20dp"
-        android:text="Contact:"
+        android:text="@string/store_detail_contact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeWorkingHours" />
 
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        android:text="00 386 041 562 793"
+        android:text="@string/store_detail_contact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
