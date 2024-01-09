@@ -1,4 +1,4 @@
-package com.example.plantbuddy
+package com.example.plantbuddy.fragments.add
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.setFragmentResult
-import com.example.lib.Plant
+import androidx.lifecycle.ViewModelProvider
+import com.example.plantbuddy.R
+import com.example.plantbuddy.model.Plant
+import com.example.plantbuddy.viewmodel.PlantViewModel
 import com.example.plantbuddy.databinding.FragmentInputBinding
 import java.util.Calendar
 
@@ -25,6 +27,7 @@ enum class ARGUMENTS(val key: String) {
 class InputFragment : Fragment(R.layout.fragment_input) {
     private lateinit var binding: FragmentInputBinding
     private var plantID: String? = null
+    private lateinit var mPlantViewModel: PlantViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,49 +35,45 @@ class InputFragment : Fragment(R.layout.fragment_input) {
     ): View? {
         binding = FragmentInputBinding.inflate(inflater, container, false)
 
+        mPlantViewModel = ViewModelProvider(this).get(PlantViewModel::class.java)
+
         setupSpinner()
 
         binding.addPlant.setOnClickListener {
-            if (binding.inputNameText.editText?.text.toString() == "") {
-                Toast.makeText(context, "You need to input plant name!", Toast.LENGTH_SHORT).show()
+            if (!inputCheck(
+                    binding.inputNameText.editText?.text.toString(),
+                    binding.plantTypeSpinner?.selectedItem.toString(),
+                    binding.inputScheduleText?.editText?.text.toString()
+                )
+            ) {
+                Toast.makeText(
+                    requireContext(), "Please fill out all fields", Toast.LENGTH_SHORT
+                ).show()
             } else {
-                val result = Bundle().apply {
-                    putString(
-                        ARGUMENTS.PLANT_NAME.key,
-                        binding.inputNameText.editText?.text.toString()
-                    )
-                    putString(
-                        ARGUMENTS.PLANT_TYPE.key,
-                        binding.plantTypeSpinner?.selectedItem.toString()
-                    )
-                    putString(
-                        ARGUMENTS.PLANT_SCHEDULE.key,
-                        binding.inputScheduleText?.editText?.text.toString()
-                    )
-                    val minute = binding.timePicker?.minute
-                    val hour = binding.timePicker?.hour
-                    val day = binding.datePicker?.dayOfMonth
-                    val month = binding.datePicker?.month
-                    val year = binding.datePicker?.year
-                    val calendar = Calendar.getInstance()
-                    if (minute != null && hour != null && day != null && month != null && year != null) {
-                        calendar.set(year, month, day, hour, minute)
-                        putLong(
-                            ARGUMENTS.PLANT_LAST_WATERING.key,
-                            calendar.timeInMillis
-                        )
-                    } else {
-                        putLong(
-                            ARGUMENTS.PLANT_LAST_WATERING.key,
-                            System.currentTimeMillis()
-                        )
-                    }
-
+                val minute = binding.timePicker?.minute
+                val hour = binding.timePicker?.hour
+                val day = binding.datePicker?.dayOfMonth
+                val month = binding.datePicker?.month
+                val year = binding.datePicker?.year
+                val calendar = Calendar.getInstance()
+                var timeInMillis = 0L
+                if (minute != null && hour != null && day != null && month != null && year != null) {
+                    calendar.set(year, month, day, hour, minute)
+                    timeInMillis = calendar.timeInMillis
+                } else {
+                    timeInMillis = System.currentTimeMillis()
                 }
+                val plant = Plant(0, binding.inputNameText.editText?.text.toString(),
+                    binding.plantTypeSpinner?.selectedItem.toString(),
+                    binding.inputScheduleText?.editText?.text.toString(),
+                    timeInMillis)
 
-                setFragmentResult("addRequestKey", result)
-                parentFragmentManager.popBackStack()
+                mPlantViewModel.addPlant(plant)
+                Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
+
             }
+
+            parentFragmentManager.popBackStack()
         }
 
         return binding.root
@@ -104,6 +103,10 @@ class InputFragment : Fragment(R.layout.fragment_input) {
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+    }
+
+    private fun inputCheck(name: String, plantType: String, schedule: String): Boolean {
+        return !(name == "" || plantType == "" || schedule == "")
     }
 
     private fun updateWateringSchedule(plantType: String) {

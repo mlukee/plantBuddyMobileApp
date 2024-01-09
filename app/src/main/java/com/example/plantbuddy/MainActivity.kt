@@ -1,6 +1,5 @@
 package com.example.plantbuddy
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -12,14 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.lib.Plant
 import com.example.plantbuddy.databinding.ActivityMainBinding
-import java.util.UUID
+import com.example.plantbuddy.fragments.add.ARGUMENTS
+import com.example.plantbuddy.fragments.add.InputFragment
+import com.example.plantbuddy.fragments.list.PlantFragment
+import com.example.plantbuddy.viewmodel.PlantViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var plantFragment: PlantFragment? = null
-    lateinit var app: MyApplication
+    private var mPlantViewModel: PlantViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +32,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        createNotificationChannel()
-        app = application as MyApplication
+        mPlantViewModel = ViewModelProvider(this)[PlantViewModel::class.java]
 
-        if (app.plants.isEmpty()) {
+        if(mPlantViewModel?.readAllData?.value?.size == 0) {
             binding.cardViewAddFirstPlant.visibility = View.VISIBLE
             binding.buttonAdd.visibility = View.VISIBLE
         } else {
@@ -38,7 +42,10 @@ class MainActivity : AppCompatActivity() {
             binding.buttonAdd.visibility = View.GONE
         }
 
-//        app.saveFile()
+        createNotificationChannel()
+
+
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, PlantFragment())
             .commit()
@@ -68,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             val wateringSchedule = bundle.getString(ARGUMENTS.PLANT_SCHEDULE.key)
             val lastWatering = bundle.getLong(ARGUMENTS.PLANT_LAST_WATERING.key)
             val plant = Plant(name!!, plantType!!, wateringSchedule!!, lastWatering)
-            app.addPlant(plant)
             scheduleNotification(plant)
             hideFirstPlantCardView()
         }
@@ -81,10 +87,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragment, plantFragment!!)
                 .addToBackStack(null)
                 .commit()
-            if (app.plants.isEmpty()) {
-                binding.cardViewAddFirstPlant.visibility = View.VISIBLE
-                binding.buttonAdd.visibility = View.VISIBLE
-            }
         }
     }
 
@@ -128,9 +130,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideFirstPlantCardView() {
-        if (app.plants.isNotEmpty()) {
-            return
-        }
+        if(mPlantViewModel?.readAllData?.value?.size == 0) return
         binding.cardViewAddFirstPlant.visibility = View.GONE
         binding.buttonAdd.visibility = View.GONE
     }
