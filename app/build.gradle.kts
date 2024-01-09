@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("kotlin-kapt")  // Include kotlin-kapt here
+    id("kotlin-parcelize")
 }
 
 android {
