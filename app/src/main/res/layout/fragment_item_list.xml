@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".PlantFragment"
+    tools:context=".fragments.list.PlantFragment"
     tools:listitem="@layout/fragment_item" />

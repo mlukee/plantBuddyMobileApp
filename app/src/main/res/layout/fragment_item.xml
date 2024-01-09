@@ -10,6 +10,7 @@
     android:backgroundTint="@color/md_theme_onPrimaryContainer"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
+    android:id="@+id/cardView"
     tools:layout_editor_absoluteY="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
