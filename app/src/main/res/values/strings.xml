@@ -7,7 +7,9 @@
     <string name="fabMaps_description">Maps</string>
 
     <string name="heading_input_plant">ADD PLANT</string>
+    <string name="heading_update_plant">UPDATE PLANT</string>
     <string name="buttonAddPlant">ADD PLANT</string>
+    <string name="buttonUpdatePlant">UPDATE PLANT</string>
     <string name="etHintName">Name</string>
     <string name="etHintType">Type</string>
     <string name="etHintSchedule">Schedule</string>
